@@ -1,32 +1,40 @@
-/* INUTILE PER PUNTO 2
- * 
- * package it.polito.tdp.alien;
+package it.polito.tdp.alien;
 
-public class Word {
+import java.util.ArrayList;
+import java.util.List;
+
+public class WordEnhanced {
 	
 	private String alienWord;
-	private String translation;
+	private List<String> translations;
 	
-	public Word(String alienWord, String translation) {
+	public WordEnhanced(String alienWord, String translation) {
 		super();
 		this.alienWord = alienWord;
-		this.translation = translation;
+		this.translations = new ArrayList<>();
+		this.translations.add(translation);
 	}
 
 	public String getAlienWord() {
 		return alienWord;
 	}
 
-	public void setAlienWord(String alienWord) {
-		this.alienWord = alienWord;
-	}
-
 	public String getTranslation() {
-		return translation;
+		String s = "";
+		for ( String st : this.translations) {
+			s = s + st + "\n";
+		}
+		return s;
 	}
 
-	public void setTranslation(String translation) {
-		this.translation = translation;
+	public boolean setTranslation(String translation) {
+		
+		if (!this.translations.contains(translation)) {
+			this.translations.add(translation);
+			return true;
+		}
+		
+		return false;
 	}
 
 	/*
@@ -41,6 +49,5 @@ public class Word {
 	 * false; return true; }
 	 * 
 	 * 
-	 *
+	 */
 }
-*/

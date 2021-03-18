@@ -5,22 +5,25 @@ import java.util.List;
 
 public class AlienDictionary {
 	
-	private List<Word> dictionary;
+	private List<WordEnhanced> elencoParole;
 	
 	public AlienDictionary() {
-		this.dictionary = new ArrayList<>();
+		this.elencoParole = new ArrayList<>();
 	}
 	
-	public void addWord(String alienWord, String translation) {
+	public boolean addWord(String alienWord, String translation) {
 		
-		Word parola = new Word (alienWord, translation);
+		WordEnhanced parola = new WordEnhanced (alienWord, translation);
 		
-		for ( Word w : this.dictionary) {
+		for ( WordEnhanced w : this.elencoParole) {
 					
 			if (w.getAlienWord().equals(alienWord)) {
-				this.dictionary.remove(w);
-				//IMPORTANTE IL BREAK PERCHE CAMBIAMO STRUTTURA ALLA LISTA DEL CICLO
-				break;
+				
+				// otteniamo true se la traduzione manca, false se esiste già
+				
+				return w.setTranslation(translation);
+				
+				//IMPORTANTE IL BREAK-RETURN PERCHE CAMBIAMO STRUTTURA ALLA LISTA DEL CICLO
 			}
 		}
 		
@@ -29,13 +32,14 @@ public class AlienDictionary {
 //			return;
 //		}
 			
-		this.dictionary.add(parola);
+		this.elencoParole.add(parola);
+		return true;
 		
 	}
 	
 	public String translateWord(String alienWord) {
 		
-		for ( Word w : this.dictionary) {
+		for ( WordEnhanced w : this.elencoParole) {
 			
 			if(w.getAlienWord().equals(alienWord))
 				return w.getTranslation();
@@ -46,7 +50,7 @@ public class AlienDictionary {
 	}
 
 	public void clear() {
-		this.dictionary.clear();
+		this.elencoParole.clear();
 		
 	}
 }

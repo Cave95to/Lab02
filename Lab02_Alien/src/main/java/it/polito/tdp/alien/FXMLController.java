@@ -80,14 +80,25 @@ public class FXMLController {
     		
     		String traduzione = st.nextToken();
        		
+    		if (st.hasMoreTokens()) {
+    			this.txtRisposta.setText("Inserire una o due parole.");
+    			return;
+    		}
+    		
     		if (!traduzione.matches("[a-zA-Z]*")) {
     			this.txtRisposta.setText("ERRORE: gli unici caratteri ammessi sono a-z, A-Z");
     			return;
     		}
     		
-    		this.dizionario.addWord(parola, traduzione);
-	    	this.txtRisposta.setText("La parola -> "+parola+ ", con traduzione -> "+traduzione+", è stata correttamente inserita nel dizionario");
-	    	return;
+    		if(!this.dizionario.addWord(parola, traduzione)) {
+    			
+    			this.txtRisposta.setText("La parola -> "+parola+ ", con traduzione -> "+traduzione+", è già presente nel dizionario");
+    			return;
+	    	
+    		} else {
+		    	this.txtRisposta.setText("La parola -> "+parola+ ", con traduzione -> "+traduzione+", è stata correttamente inserita nel dizionario");
+		    	return;
+    		}
     	}
     	
 	    //se utente inserisce 1 sola parola
@@ -98,7 +109,7 @@ public class FXMLController {
     	else
     		this.txtRisposta.setText(this.dizionario.translateWord(parola));
 	    	
-    	}
+    }
 //    }
 
     @FXML
